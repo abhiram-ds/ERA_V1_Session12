@@ -41,8 +41,21 @@ The class defines three data loader methods: `train_dataloader`, `val_dataloader
 After defining the `Assignment12Resnet` class, the notebook proceeds with testing the model.
 
 1. A model instance is created: `model = Assignment12Resnet()`.
-2. The model is trained using the `Trainer` class from PyTorch Lightning with a `fast_dev_run`, which runs only a few training batches to check if everything is working as expected. This allows you to quickly verify the code without training the model fully.
+2. The model is trained using the `Trainer` class from PyTorch Lightave calculated the receptive field based on the custom network and decided to select layer2 as it has 6*6 as output size.
+need to attach the image.
+
+#Difficulties faced
+1. Calculated the receptive field for custom model and obseved the output channel size to be 6*6.so decided to put at end of layer2. the snapshot for is 
+![](image/rf.png)
+2. As the layer2 components are not iterable for my custom restnet implementaion and so indexing them became a problem has to rewrite the code using nn.Sequential
+and add those components. and prepared a model_dict dictionary to get the components of layer2.
+3. I was not seeing the same accuracy after loading the model for inference. so I used 
+    a)used pl_model = Assignment12Resnet().load_from_checkpoint("epoch=22-step=4140.ckpt",map_location=torch.device("cpu")) for loading
+      instead of torch.load
+    b)added the correct test transforms to be used for inferencing and after putting the model to eval() I was able to see accurate results. ning with a `fast_dev_run`, which runs only a few training batches to check if everything is working as expected. This allows you to quickly verify the code without training the model fully.
 
    ```python
    trainer = Trainer(fast_dev_run=True)
    trainer.fit(model)
+
+

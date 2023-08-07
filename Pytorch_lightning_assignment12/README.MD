@@ -48,7 +48,7 @@ need to attach the image.
 1. Calculated the receptive field for custom model and obseved the output channel size to be 6*6.so decided to put at end of layer2. the snapshot for is 
 ![](image/rf_calculations.jpeg)
 
-![]((image/rf_channel_formula.jpeg)
+![](image/rf_channel_formula.jpeg)
 2. As the layer2 components are not iterable for my custom restnet implementaion and so indexing them became a problem has to rewrite the code using nn.Sequential
 and add those components. and prepared a model_dict dictionary to get the components of layer2.
 3. I was not seeing the same accuracy after loading the model for inference. so I used 
